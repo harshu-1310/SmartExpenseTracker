@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Expense Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Smart Expense Tracker</h1>
+      <p>Track spending, manage budgets, and review professional reports in one dashboard.</p>
+    </div>
+    <div class="hero-actions">
+      <button id="btn-export">Export JSON</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel panel-form">
+      <h2>New Transaction</h2>
+      <form id="transaction-form">
+        <div class="control-group">
+          <label for="description">Description</label>
+          <input type="text" id="description" name="description" required />
+        </div>
+        <div class="control-group">
+          <label for="amount">Amount</label>
+          <input type="number" id="amount" name="amount" step="0.01" required />
+        </div>
+        <div class="control-row">
+          <div class="control-group">
+            <label for="category">Category</label>
+            <select id="category" name="category" required></select>
+          </div>
+          <div class="control-group">
+            <label for="type">Type</label>
+            <select id="type" name="type" required>
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+            </select>
+          </div>
+        </div>
+        <div class="control-row">
+          <div class="control-group">
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" required />
+          </div>
+          <div class="control-group">
+            <label for="note">Note</label>
+            <input type="text" id="note" name="note" placeholder="Optional details" />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary">Save Transaction</button>
+      </form>
+      <div class="category-manager">
+        <h3>Manage Categories</h3>
+        <div class="inline-form">
+          <input type="text" id="new-category" placeholder="New category" />
+          <button id="add-category">Add</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel panel-summary">
+      <h2>Dashboard</h2>
+      <div class="summary-grid">
+        <article class="summary-card">
+          <strong id="summary-balance">$0.00</strong>
+          <span>Net Balance</span>
+        </article>
+        <article class="summary-card">
+          <strong id="summary-income">$0.00</strong>
+          <span>Total Income</span>
+        </article>
+        <article class="summary-card">
+          <strong id="summary-expenses">$0.00</strong>
+          <span>Total Expenses</span>
+        </article>
+        <article class="summary-card">
+          <strong id="summary-count">0</strong>
+          <span>Transactions</span>
+        </article>
+      </div>
+      <div class="report-filters">
+        <label>From <input type="date" id="filter-start" /></label>
+        <label>To <input type="date" id="filter-end" /></label>
+        <button id="btn-refresh">Refresh</button>
+      </div>
+      <div class="chart-panel">
+        <h3>Expenses by Category</h3>
+        <canvas id="category-chart" width="600" height="260"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <section class="panel panel-table">
+    <h2>Transactions</h2>
+    <div class="table-actions">
+      <input type="search" id="search-input" placeholder="Search description or category" />
+      <button id="btn-clear-filters">Clear Filters</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Note</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="transaction-table"></tbody>
+    </table>
+  </section>
+
+  <template id="row-template">
+    <tr>
+      <td class="date"></td>
+      <td class="description"></td>
+      <td class="category"></td>
+      <td class="type"></td>
+      <td class="amount"></td>
+      <td class="note"></td>
+      <td class="actions"></td>
+    </tr>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
